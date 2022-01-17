@@ -1,0 +1,27 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	SSD				**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#ifndef SSD_interface_H_
+#define SSD_interface_H_
+
+/****************************Common type****************************/
+#define SSD_u8CommonAnode	(u8) 1
+#define SSD_u8CommonCathode	(u8) 0
+
+/****************************Input struct***************************/
+typedef struct SSD_t{
+	u8 SSD_u8OutputPort;
+	u8 SSD_u8Common;
+	u8 SSD_u8EnablePort;
+	u8 SSD_u8EnablePin;
+}SSD_t;
+/****************************function prototypes**********************/
+u8 SSD_u8ShowNumber(SSD_t* pstruct_SSDn,u8 SSD_u8Number);
+u8 SSD_u8Shutdown(SSD_t* pstruct_SSDn);//used for multiplexing SSD
+#endif

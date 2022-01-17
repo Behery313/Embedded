@@ -1,0 +1,79 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	CLCD			**********************/
+/**************		Version:1.00			**********************/
+/**************		Date:17/1/2022			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#include "STD_TYPES.h"
+#include <util/delay.h>
+#include "DIO_interface.h"
+#include "CLCD_interface.h"
+#include "CLCD_config.h"
+
+void CLCD_VoidSendCommand(u8 Copy_u8Command)
+{
+	/**********SET RS to 0 for command*************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_RS_PIN,DIO_u8LOW);
+	
+	/**********SET RW to 0 to write****************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_RW_PIN,DIO_u8LOW);
+	
+	/**********SET DATA Value**********************/
+	DIO_u8SetPortValue(CLCD_DATA_PORT,Copy_u8Command);
+	
+	/**********Send enable pulse********************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8HIGH);//set enable pin to high for the microcontroller on the lcd to read the data sent to it
+	_delay_ms(2);//max delay value specified by the initializations after sending the command
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8LOW);
+
+}
+void CLCD_VoidSendData(u8 Copy_u8Data)
+{
+	/**********SET RS to 1 for DATA****************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_RS_PIN,DIO_u8HIGH);
+	/**********SET RW to 0 to write****************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_RW_PIN,DIO_u8LOW);
+	/**********SET DATA Value**********************/
+	DIO_u8SetPortValue(CLCD_DATA_PORT,Copy_u8Data);
+	/**********Send enable pulse********************/
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8HIGH);//set enable pin to high for the microcontroller on the lcd to read the data sent to it
+	_delay_ms(2);//delay value specified by the datasheet
+	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8LOW);
+	
+}
+void CLCD_VoidInit(void)
+{
+	/*8 bit initialization*/
+	/*wait for 30 ms from power on*/
+	_delay_ms(30);
+	
+	/*function set : set the DATA port to specified value from datasheet */
+	/*N:number of lines used in the LCD '0' for 1 line and '1' for 2 lines*/
+	/*F:charachter size either 5x8 or 5x11'0' for 5x8 and '1' for 5x11*/
+	/*note that charachter is displayed in either 5x10 or 5x7 the extra row is for the cursor*/
+	CLCD_VoidSendCommand(0b00111000);//use 5x8 and 2 lines
+	
+	/*Display ON/OFF control:control whether to turn on or off the display*/
+	/*D:display on or off to save power '0' for off '1' for on*/
+	/*C:cursor on or off '0' for off '1' for on*/
+	/*B:cursor blinks or not '0' for nonblinking '1' for blinking*/
+	CLCD_VoidSendCommand(0b00001111);
+	
+	/*clear display*/
+	CLCD_VoidSendCommand(0b00000001);
+	
+	/*Entry mode set:advanced not needed*/
+	
+}
+void CLCD_VoidSendString(const char * CLCD_pcString)
+{
+
+	for(u8 i=0;*(CLCD_pcString+i)!=NULL;i++)
+	{
+		CLCD_VoidSendData(CLCD_pcString[i]);
+	}
+}

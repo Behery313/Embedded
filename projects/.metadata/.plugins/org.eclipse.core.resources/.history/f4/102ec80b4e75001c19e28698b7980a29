@@ -1,0 +1,18 @@
+/*
+ * main.c
+ *
+ *  Created on: 14 Jan 2022
+ *      Author: Yusuf
+ */
+#include<avr/io.h>
+#include<util/delay.h>
+void main()
+{
+	DDRA=0xff;
+	DDRD=0xff;
+	DDRC=0xff;
+	while(1)
+	{
+
+	}
+}

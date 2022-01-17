@@ -1,0 +1,218 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	SWITCH			**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#include "STD_TYPES.h"
+#include "DIO_interface.h"
+#include "SWITCH_interface.h"
+#include <util/delay.h>
+/**********************Getting state*****************************/
+u8 SW_u8GetState(SW_t* pstruct_SWn , u8* pu8_SwitchState)
+{
+	u8 Local_u8ErrorState=0;
+	if(pstruct_SWn!=NULL&&pu8_SwitchState!=NULL)//checking that we don't work on null pointer
+	{
+		/***********************************************************************************/
+		/******************************PULLUP***********************************************/
+		/***********************************************************************************/	
+		if(pstruct_SWn->SW_u8Pulltype==SW_u8Pullup)//internal pullup
+		{
+			if(((pstruct_SWn->SW_u8PIN)<=DIO_u8PIN_7))
+			{
+					switch(pstruct_SWn->SW_u8Port)
+				{
+					/******************************PORTA************************************************/
+					case DIO_u8PORTA :
+					DIO_u8SetPinDirection(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),DIO_u8HIGH);//set pin value to high for internal pullup
+					DIO_u8GetPinValue(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTB************************************************/
+					case DIO_u8PORTB :
+					DIO_u8SetPinDirection(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),DIO_u8HIGH);//set pin value to high for internal pullup
+					DIO_u8GetPinValue(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTC************************************************/
+					case DIO_u8PORTC :
+					DIO_u8SetPinDirection(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),DIO_u8HIGH);//set pin value to high for internal pullup
+					DIO_u8GetPinValue(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(1000);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTD************************************************/
+					case DIO_u8PORTD :
+					DIO_u8SetPinDirection(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),DIO_u8HIGH);//set pin value to high for internal pullup
+					DIO_u8GetPinValue(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					default://error in port number
+					Local_u8ErrorState=1;
+				}
+			}
+			else//error due to invalid pin number
+			{
+				Local_u8ErrorState=1;
+			}
+		}
+		/***********************************************************************************/
+		/******************************PULLDOWN*********************************************/
+		/***********************************************************************************/		
+		else if (pstruct_SWn->SW_u8Pulltype==SW_u8Pulldown)
+		{
+			if(((pstruct_SWn->SW_u8PIN)<=DIO_u8PIN_7))
+			{
+				switch(pstruct_SWn->SW_u8Port)
+				{
+					/******************************PORTA************************************************/
+					case DIO_u8PORTA :
+					DIO_u8SetPinDirection(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),DIO_u8LOW);//set pin value to low for internal pulldown
+					DIO_u8GetPinValue(DIO_u8PORTA,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTB************************************************/
+					case DIO_u8PORTB :
+					DIO_u8SetPinDirection(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),DIO_u8LOW);//set pin value to low for internal pulldown
+					DIO_u8GetPinValue(DIO_u8PORTB,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTC************************************************/
+					case DIO_u8PORTC :
+					DIO_u8SetPinDirection(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),DIO_u8LOW);//set pin value to low for internal pulldown
+					DIO_u8GetPinValue(DIO_u8PORTC,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					/******************************PORTD************************************************/
+					case DIO_u8PORTD :
+					DIO_u8SetPinDirection(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),DIO_u8INPUT);//set pin direction
+					DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),DIO_u8LOW);//set pin value to low for internal pulldown
+					DIO_u8GetPinValue(DIO_u8PORTD,(pstruct_SWn->SW_u8PIN),pu8_SwitchState);//get the value of specified pin
+					if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Maintained)
+					{
+						//do nothing
+					}
+					else if((pstruct_SWn->SW_u8SelfLockingType)==SW_u8Temporary)//Debouncing technique
+					{
+						_delay_ms(250);//use delay (bad solution) until bouncing stops
+					}
+					else//error due to invalid Self Locking Type
+					{
+						Local_u8ErrorState=1;
+					}
+					break;
+
+					default://error in port number
+					Local_u8ErrorState=1;
+				}
+			}
+			else//error due to invalid pin number
+			{
+				Local_u8ErrorState=1;
+			}			
+		}
+		else//error in switch pull type
+		{
+			Local_u8ErrorState=1;
+		}
+	}
+	else//error due to ptr to null
+	{
+		Local_u8ErrorState=1;
+	}
+	return Local_u8ErrorState;
+}

@@ -1,0 +1,22 @@
+/*
+ * main.c
+ *
+ *  Created on: 16 Jan 2022
+ *      Author: Yusuf
+ */
+#include"STD_TYPES.h"
+#include"LED_interface.h"
+#include<util/delay.h>
+void main()
+{
+	LED_t L1={LED_u8PORTC,LED_u8PIN_3,LED_u8ConnSource};
+	//LED_u8TurnON(&L1);
+	//LED_u8TurnOFF(&L1);
+	while(1)
+	{
+		LED_u8TurnON(&L1);
+		_delay_ms(1000);
+		LED_u8TurnOFF(&L1);
+		_delay_ms(1000);
+	}
+}

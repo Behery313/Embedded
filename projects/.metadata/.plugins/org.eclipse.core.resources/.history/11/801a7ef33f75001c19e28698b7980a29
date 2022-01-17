@@ -1,0 +1,19 @@
+/*
+  * main.c
+ *
+ *  Created on: 14 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include<avr/io.h>
+#include<util/delay.h>
+typedef unsigned char u8;
+void main()
+{
+	DDRA=0xff;
+	u8 num_7_seg[]={0b10100000,0b11111001,0b00100011,0b00001011,0b10011001,0b01000001};
+	while(1)
+	{
+		PORTA=num_7_seg[0];
+	}
+}

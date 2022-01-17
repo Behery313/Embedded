@@ -1,0 +1,50 @@
+/*
+ * main.c
+ *
+ *  Created on: 17 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include"STD_TYPES.h"
+#include"DIO_interface.h"
+#include"CLCD_interface.h"
+#include"CLCD_config.h"
+#include<util/delay.h>
+void main()
+{
+	DIO_u8SetPortDirection(CLCD_DATA_PORT,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_RS_PIN,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_RW_PIN,DIO_u8OUTPUT);
+	//char name[]="Behery";
+	/*initialize LCD*/
+	CLCD_VoidInit();
+	u8 pattern[]={0b10001,0b10001,0b10001,0b11111,0b11111,0b00000,0b00110,0b00000};
+	u8 pattern1[]={0b1,0b1,0b1,0b11111,0,0b01010,0,0};
+	u8 pattern2[]={0b01110,0b01010,0b01010,0b01111,0b00100,0b01000,0b10000,0};
+	u8 pattern3[]={0b10101,0b10101,0b10101,0b11111,0,0,0,0};
+	u8 pattern4[]={0b00010,0b10010,0b10101,0b11111,0,0,0};
+	DIO_u8SetPortDirection(DIO_u8PORTA,DIO_u8INPUT);
+	DIO_u8SetPortValue(DIO_u8PORTA,DIO_u8HIGH);
+	DIO_u8SetPinDirection(DIO_u8PORTB,DIO_u8PIN_0,DIO_u8OUTPUT);
+	u8 test;
+	CLCD_VoidShowNum(1998);
+
+	CLCD_VoidWriteSpecialChar(pattern1,0,0,1);
+	//CLCD_VoidSendData('1');
+	CLCD_VoidWriteSpecialChar(pattern4,1,0,2);
+	//CLCD_VoidSendData('2');
+	//CLCD_VoidSendData('3');
+	//CLCD_VoidSendData('4');
+	//CLCD_VoidSendData('5');
+	//CLCD_VoidWriteSpecialChar(pattern,0,0,3);
+	//CLCD_VoidSendData('6');
+	//CLCD_VoidSendData('7');
+	//CLCD_VoidGoToXY(1,15);
+	//CLCD_VoidSendString(name);
+	while(1)
+	{
+
+	}
+
+}

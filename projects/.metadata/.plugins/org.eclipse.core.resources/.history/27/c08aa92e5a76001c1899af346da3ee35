@@ -1,0 +1,40 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	MCAL			**********************/
+/**************		SWC:	DIO				**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+#ifndef DIO_INTERFACE_H_
+#define DIO_INTERFACE_H_
+/****************************PORTS*****************************************/
+#define PORTA	(u8) 0
+#define PORTB	(u8) 1
+#define PORTC	(u8) 2
+#define PORTD	(u8) 3
+/****************************PINS*****************************************/
+#define PIN_0	(u8) 0
+#define PIN_1	(u8) 1
+#define PIN_2   (u8) 2
+#define PIN_3   (u8) 3
+#define PIN_4   (u8) 4
+#define PIN_5   (u8) 5
+#define PIN_6   (u8) 6
+#define PIN_7   (u8) 7
+/****************************EXTRAS****************************************/
+#define OUTPUT	(u8) 1
+#define INPUT	(u8) 0
+#define HIGH	(u8) 1
+#define LOW		(u8) 0
+/*********************Function Prototypes*********************************/
+u8 DIO_u8SetPinDirection(u8 Copy_u8Port ,u8 Copy_u8Pin,u8 Copy_u8Direction);
+
+u8 DIO_u8SetPortDirection(u8 Copy_u8Port ,u8 Copy_u8Direction);
+
+u8 DIO_u8SetPinValue(u8 Copy_u8Port ,u8 Copy_u8Pin,u8 Copy_u8Value);
+
+u8 DIO_u8SetPortValue(u8 Copy_u8Port ,u8 Copy_u8Value);
+
+u8 DIO_u8GetPinValue(u8 Copy_u8Port ,u8 Copy_u8Pin,u8* Copy_pu8Value);
+#endif

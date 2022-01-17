@@ -1,0 +1,211 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	SSD				**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#include "STD_TYPES.h"
+#include "DIO_interface.h"
+#include "SSD_interface.h"
+
+u8 SSD_u8ShowNumber(SSD_t* pstruct_SSDn,u8 SSD_u8Number)
+{
+	u8 Local_u8ErrorState=0;
+	if(((pstruct_SSDn->SSD_u8EnablePin)<=DIO_u8PIN_7)&&SSD_u8Number<=9)
+	{
+		//array used to show numbers FOR COMMON ANODE SSD
+		u8 SSD_u8ArrNums[]={0b10100000,0b11111001,0b11000100,0b11010000,0b10011001,0b10010010,0b10000011,0b11111000,0b10000000,0b10011000};
+		///////////////////////////////////////////////////////////////////////////////////////////////		
+		///////////////////////////////////Common anode////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		if((pstruct_SSDn->SSD_u8Common)==SSD_u8CommonAnode)//for common anode
+		{
+			///////////////////////////setting up enable pin /////////////////////////////////////
+			switch(pstruct_SSDn->SSD_u8EnablePort)
+			{
+				case DIO_u8PORTA:
+				DIO_u8SetPinDirection(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);		//set enable pin to HIGH			
+				break;
+				
+				case DIO_u8PORTB:
+				DIO_u8SetPinDirection(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);		//set enable pin to HIGH	
+			
+				break;
+				
+				case DIO_u8PORTC:
+				DIO_u8SetPinDirection(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);		//set enable pin to HIGH	
+			
+				break;
+				
+				case DIO_u8PORTD:
+				DIO_u8SetPinDirection(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);		//set enable pin to HIGH	
+		
+				break;
+				
+				default://error in enable port
+				Local_u8ErrorState=1;
+			}
+			/////////////////////////////setting up output port ///////////////////////////////////////////
+			switch(pstruct_SSDn->SSD_u8OutputPort)
+			{
+				case DIO_u8PORTA:
+				DIO_u8SetPortDirection(DIO_u8PORTA,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTA,SSD_u8ArrNums[SSD_u8Number]);					//set output port value to the required number					
+				break;
+				
+				case DIO_u8PORTB:
+				DIO_u8SetPortDirection(DIO_u8PORTB,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTB,SSD_u8ArrNums[SSD_u8Number]);					//set output port value to the required number		
+				break;
+				
+				case DIO_u8PORTC:
+				DIO_u8SetPortDirection(DIO_u8PORTC,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTC,SSD_u8ArrNums[SSD_u8Number]);					//set output port value to the required number		
+				break;
+				
+				case DIO_u8PORTD:
+				DIO_u8SetPortDirection(DIO_u8PORTD,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTD,SSD_u8ArrNums[SSD_u8Number]);					//set output port value to the required number		
+				break;
+				
+				default://error in output port
+				Local_u8ErrorState=1;
+			}
+		}
+		///////////////////////////////////////////////////////////////////////////////////////////////		
+		///////////////////////////////////Common cathode////////////////////////////////////////////////
+		///////////////////////////////////////////////////////////////////////////////////////////////
+		else if((pstruct_SSDn->SSD_u8Common)==SSD_u8CommonCathode)
+		{
+			///////////////////////////setting up enable pin /////////////////////////////////////
+			switch(pstruct_SSDn->SSD_u8EnablePort)
+			{
+				case DIO_u8PORTA:
+				DIO_u8SetPinDirection(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);		//set enable pin to HIGH			
+				break;
+				
+				case DIO_u8PORTB:
+				DIO_u8SetPinDirection(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);		//set enable pin to HIGH	
+			
+				break;
+				
+				case DIO_u8PORTC:
+				DIO_u8SetPinDirection(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);		//set enable pin to HIGH	
+			
+				break;
+				
+				case DIO_u8PORTD:
+				DIO_u8SetPinDirection(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8OUTPUT);//set enable pin to output
+				DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);		//set enable pin to HIGH	
+		
+				break;
+				
+				default://error in enable port
+				Local_u8ErrorState=1;
+			}
+			/////////////////////////////setting up output port ///////////////////////////////////////////
+			switch(pstruct_SSDn->SSD_u8OutputPort)
+			{
+				case DIO_u8PORTA:
+				DIO_u8SetPortDirection(DIO_u8PORTA,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTA,~(SSD_u8ArrNums[SSD_u8Number]));					//set output port value to the required number					
+				break;
+				
+				case DIO_u8PORTB:
+				DIO_u8SetPortDirection(DIO_u8PORTB,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTB,~(SSD_u8ArrNums[SSD_u8Number]));					//set output port value to the required number		
+				break;
+				
+				case DIO_u8PORTC:
+				DIO_u8SetPortDirection(DIO_u8PORTC,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTC,~(SSD_u8ArrNums[SSD_u8Number]));					//set output port value to the required number		
+				break;
+				
+				case DIO_u8PORTD:
+				DIO_u8SetPortDirection(DIO_u8PORTD,DIO_u8OUTPUT);								//set output port direction to output
+				DIO_u8SetPortValue(DIO_u8PORTD,~(SSD_u8ArrNums[SSD_u8Number]));					//set output port value to the required number		
+				break;
+				
+				default://error in output port
+				Local_u8ErrorState=1;
+			}			
+		}
+		else//error in Common type
+		{
+			Local_u8ErrorState=1;
+		}
+	}
+	else//error in enable pin or number to be shown
+	{
+		Local_u8ErrorState=1;
+	}
+	return Local_u8ErrorState;
+}
+u8 SSD_u8Shutdown(SSD_t* pstruct_SSDn)
+{
+	u8 Local_u8ErrorState=0;
+	if((pstruct_SSDn->SSD_u8EnablePin)<=DIO_u8PIN_7)
+	{
+		if((pstruct_SSDn->SSD_u8Common)==SSD_u8CommonAnode)
+		{
+			switch(pstruct_SSDn->SSD_u8EnablePort)
+			{
+				case DIO_u8PORTA:
+				DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);
+				break;	
+				case DIO_u8PORTB:
+				DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);				
+				break;			
+				case DIO_u8PORTC:
+				DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);				
+				break;
+				case DIO_u8PORTD:
+				DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8LOW);				
+				break;
+				
+				default://error in enable port
+				Local_u8ErrorState=1;
+				
+			}
+		}
+		else if((pstruct_SSDn->SSD_u8Common)==SSD_u8CommonCathode)
+		{
+			switch(pstruct_SSDn->SSD_u8EnablePort)
+				{
+					case DIO_u8PORTA:
+					DIO_u8SetPinValue(DIO_u8PORTA,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);
+					break;
+					case DIO_u8PORTB:
+					DIO_u8SetPinValue(DIO_u8PORTB,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);
+					break;
+					case DIO_u8PORTC:
+					DIO_u8SetPinValue(DIO_u8PORTC,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);
+					break;
+					case DIO_u8PORTD:
+					DIO_u8SetPinValue(DIO_u8PORTD,(pstruct_SSDn->SSD_u8EnablePin),DIO_u8HIGH);
+					break;
+					default://error in enable port
+					Local_u8ErrorState=1;
+				}
+		}
+		else//error in common type
+		{
+			Local_u8ErrorState=1;
+		}
+	}
+	else//error in enable pin
+	{
+		Local_u8ErrorState=1;
+	}
+	return Local_u8ErrorState;
+}

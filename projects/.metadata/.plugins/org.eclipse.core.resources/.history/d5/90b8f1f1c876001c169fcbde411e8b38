@@ -1,0 +1,15 @@
+/*
+ * main.c
+ *
+ *  Created on: 16 Jan 2022
+ *      Author: Yusuf
+ */
+#include"STD_TYPES.h"
+#include"DIO_interface.h"
+void main()
+{
+	DIO_u8SetPortDirection(DIO_u8PORTA,DIO_u8OUTPUT);
+
+	DIO_u8SetPinDirection(DIO_u8PORTC,DIO_u8PIN3,DIO_u8HIGH);
+
+}

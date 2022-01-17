@@ -1,0 +1,15 @@
+/*
+ * main.c
+ *
+ *  Created on: 17 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include"STD_TYPES.h"
+#include"DIO_interface.h"
+#include"CLCD_interface.h"
+#include"CLCD_config.h"
+void main()
+{
+	DIO_u8SetPortDirection(CLCD_Data_PORT,DIO_u8OUTPUT);
+}

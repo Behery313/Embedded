@@ -1,0 +1,55 @@
+20:27:45 **** Incremental Build of configuration Debug for project SESSION_3___DIO_driver2 ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 SESSION_3___DIO_driver2.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    5426 bytes (16.6% Full)
+(.text + .data + .bootloader)
+
+Data:         18 bytes (0.9% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+Invoking: AVRDude
+E:\work\embedded\tools\IMT_SDK_Win_64\WinAVR\bin\avrdude -pm32 -cusbasp -Uflash:w:SESSION_3___DIO_driver2.hex:a
+
+avrdude: warning: cannot set sck period. please check for usbasp firmware update.
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e9502
+avrdude: NOTE: FLASH memory has been specified, an erase cycle will be performed
+         To disable this feature, specify the -D option.
+avrdude: erasing chip
+avrdude: warning: cannot set sck period. please check for usbasp firmware update.
+avrdude: reading input file "SESSION_3___DIO_driver2.hex"
+avrdude: input file SESSION_3___DIO_driver2.hex auto detected as Intel Hex
+avrdude: writing flash (5426 bytes):
+
+Writing | ################################################## | 100% 3.12s
+
+avrdude: 5426 bytes of flash written
+avrdude: verifying flash memory against SESSION_3___DIO_driver2.hex:
+avrdude: load data flash data from input file SESSION_3___DIO_driver2.hex:
+avrdude: input file SESSION_3___DIO_driver2.hex auto detected as Intel Hex
+avrdude: input file SESSION_3___DIO_driver2.hex contains 5426 bytes
+avrdude: reading on-chip flash data:
+
+Reading | ################################################## | 100% 2.74s
+
+avrdude: verifying ...
+avrdude: 5426 bytes of flash verified
+
+avrdude done.  Thank you.
+
+Finished building: avrdudedummy
+ 
+
+20:27:52 Build Finished (took 6s.368ms)
+

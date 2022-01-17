@@ -1,0 +1,26 @@
+/*
+ * main.c
+ *
+ *  Created on: 15 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include<avr/io.h>
+#include "typedefs.h"
+
+#include"DIO_Int.h"
+
+void main()
+{
+	DIO_SetPortDir(PORTA,OUTPUT);
+	while(1){
+		*((volatile u8 *)0x3B)=0;
+	//DIO_SetPortVal(PORTA,0);
+		DIO_SetPinVal(PORTA,0,0);
+		DIO_SetPinVal(PORTA,1,0);
+		DIO_SetPinVal(PORTA,2,0);
+		DIO_SetPinVal(PORTA,3,0);
+		DIO_SetPinVal(PORTA,4,0);
+		DIO_SetPinVal(PORTA,5,0);
+		}
+}

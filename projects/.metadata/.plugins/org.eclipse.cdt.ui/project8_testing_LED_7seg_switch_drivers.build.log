@@ -1,0 +1,43 @@
+00:52:00 **** Incremental Build of configuration Debug for project project8_testing_LED_7seg_switch_drivers ****
+make all 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=12000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+In file included from ../main.c:11:
+../SWITCH_interface.h:32: warning: no semicolon at end of struct or union
+In file included from ../main.c:13:
+e:/work/embedded/tools/imt_sdk_win_64/winavr/lib/gcc/../../avr/include/util/delay.h:90:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+../main.c:14: warning: return type of 'main' is not 'int'
+Finished building: ../main.c
+ 
+Building target: project8_testing_LED_7seg_switch_drivers.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,project8_testing_LED_7seg_switch_drivers.map -mmcu=atmega32 -o "project8_testing_LED_7seg_switch_drivers.elf"  ./DIO_program.o ./LED_program.o ./SSD_program.o ./SWITCH_program.o ./main.o   
+Finished building target: project8_testing_LED_7seg_switch_drivers.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S project8_testing_LED_7seg_switch_drivers.elf  >"project8_testing_LED_7seg_switch_drivers.lss"
+Finished building: project8_testing_LED_7seg_switch_drivers.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex project8_testing_LED_7seg_switch_drivers.elf  "project8_testing_LED_7seg_switch_drivers.hex"
+Finished building: project8_testing_LED_7seg_switch_drivers.hex
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 project8_testing_LED_7seg_switch_drivers.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:   11936 bytes (36.4% Full)
+(.text + .data + .bootloader)
+
+Data:         22 bytes (1.1% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+00:52:01 Build Finished (took 876ms)
+

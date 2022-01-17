@@ -1,0 +1,21 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	CLCD			**********************/
+/**************		Version:1.00			**********************/
+/**************		Date:17/1/2022			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#ifndef CLCD_interface_H_
+#define CLCD_interface_H_
+
+/*******************Function Prototypes*****************************/
+void CLCD_VoidSendCommand(u8 Copy_u8Command);
+void CLCD_VoidSendData(u8 Copy_u8Data);
+void CLCD_VoidInit(void);
+void CLCD_VoidSendString(const char * CLCD_pcString);
+void CLCD_VoidGoToXY(u8 Copy_u8XPos,u8 Copy_u8YPos);
+void CLCD_VoidWriteSpecialChar(const u8* Copy_pu8Pattern,u8 Copy_u8BlockNumber);//block number:number of special characters 0->7
+#endif

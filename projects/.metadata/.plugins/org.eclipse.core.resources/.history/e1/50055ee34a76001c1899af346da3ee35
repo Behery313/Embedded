@@ -1,0 +1,23 @@
+/*
+ * main.c
+
+ *
+ *  Created on: 15 Jan 2022
+ *      Author: Yusuf
+ */
+#include <avr/io.h>
+#include "STD_TYPES.h"
+#include "DIO_interface.h"
+
+void main()
+{
+	DIO_u8SetPortDirection(0,OUTPUT);
+	DIO_u8SetPortDirection(3,OUTPUT);
+	DDRA=0xff;
+	while(1)
+	{
+		DIO_u8SetPortValue(0,LOW);
+		//DIO_u8SetPinValue(PORTC,PIN_7,HIGH);
+		DIO_u8SetPortValue(3,HIGH);
+	}
+}

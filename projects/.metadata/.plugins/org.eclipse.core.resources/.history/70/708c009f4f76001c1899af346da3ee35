@@ -1,0 +1,308 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	MCAL			**********************/
+/**************		SWC:	DIO				**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+
+#include "STD_TYPES.h"
+#include "BIT_MATH.h"
+#include "DIO_register.h"
+#include "DIO_interface.h"
+/**************************************************************************/
+/***************setting direction of PIN***********************************/
+/**************************************************************************/
+u8 DIO_u8SetPinDirection(u8 Copy_u8Port ,u8 Copy_u8Pin,u8 Copy_u8Direction)
+{
+	if (Copy_u8Port<=PORTD&&Copy_u8Pin<=PIN_7)
+	{
+			if(Copy_u8Direction==INPUT)//if direction is input clear bits
+			{
+				switch(Copy_u8Port)
+				{
+					case PORTA:
+						CLR_BIT(DDRA_reg,Copy_u8Pin);
+						break;
+					case PORTB:
+						CLR_BIT(DDRB_reg,Copy_u8Pin);
+						break;
+					case PORTC:
+						CLR_BIT(DDRC_reg,Copy_u8Pin);
+						break;
+					case PORTD:
+						CLR_BIT(DDRD_reg,Copy_u8Pin);
+				}
+			}
+			else if(Copy_u8Direction==OUTPUT)//if direction is output set bits to one
+			{
+
+
+				switch(Copy_u8Port)
+				{
+					case PORTA:
+					SET_BIT(DDRA_reg,Copy_u8Pin);
+					break;
+					case PORTB:
+					SET_BIT(DDRB_reg,Copy_u8Pin);
+					break;
+					case PORTC:
+					SET_BIT(DDRC_reg,Copy_u8Pin);
+					break;
+					case PORTD:
+					SET_BIT(DDRD_reg,Copy_u8Pin);
+				}
+			}
+			else//direction is neither input or output return 0
+			return 0;//error
+		return 1;//no error
+	}
+	else
+		return 0;//error 
+}
+
+/***************************************************************************/
+/***************setting direction of PORT***********************************/
+/***************************************************************************/
+
+u8 DIO_u8SetPortDirection(u8 Copy_u8Port ,u8 Copy_u8Direction)
+{
+	if(Copy_u8Port<=PORTD)
+	{
+		if(Copy_u8Direction==INPUT)
+		{
+			switch (Copy_u8Port)
+			{	
+				case PORTA:
+				for(u8 i=7 ; i>=0 ; i--)//clearing all bits in the port
+				{
+					CLR_BIT(DDRA_reg,i);
+				}
+				break;
+				
+				case PORTB:
+				for(u8 i=7 ; i>=0 ; i--)//clearing all bits in the port
+				{
+					CLR_BIT(DDRB_reg,i);
+				}
+				break;
+				
+				case PORTC:
+				for(u8 i=7 ; i>=0 ; i--)//clearing all bits in the port
+				{
+					CLR_BIT(DDRC_reg,i);
+				}
+				break;
+				
+				case PORTD:
+				for(u8 i=7 ; i>=0 ; i--)//clearing all bits in the port
+				{
+					CLR_BIT(DDRD_reg,i);
+				}
+				break;
+			}
+		}	
+		else if(Copy_u8Direction==OUTPUT)
+		{
+			switch (Copy_u8Port)
+			{	
+				case PORTA:
+				for(u8 i=7 ; i>=0 ; i--)//setting all bits in the port
+				{
+					SET_BIT(DDRA_reg,i);
+				}
+				/////////////
+							while(1)
+							{DDRC_reg=0b10000;PORTC_reg=0b10000;}
+							///////
+				break;
+				
+				case PORTB:
+				for(u8 i=7 ; i>=0 ; i--)//setting all bits in the port
+				{
+					SET_BIT(DDRB_reg,i);
+				}
+				break;
+				
+				case PORTC:
+				for(u8 i=7 ; i>=0 ; i--)//setting all bits in the port
+				{
+					SET_BIT(DDRC_reg,i);
+				}
+				break;
+				
+				case PORTD:
+				for(u8 i=7 ; i>=0 ; i--)//setting all bits in the port
+				{
+					SET_BIT(DDRD_reg,i);
+				}
+				break;
+			}
+		}
+		else 		//incorrect direction
+			return 0;	 //error incorrect input
+			
+		return 1;//correct input
+	}
+	else
+		return 0;//error
+}
+
+/******************************************************************************/
+/***********************Setting pin value**************************************/
+/******************************************************************************/
+
+u8 DIO_u8SetPinValue(u8 Copy_u8Port ,u8 Copy_u8Pin,u8 Copy_u8Value)
+{
+	if(Copy_u8Port<=PORTD&&Copy_u8Pin<=PIN_7)
+	{
+		if (Copy_u8Value)//if value is 1 SET the required PIN
+		{
+			switch(Copy_u8Port)
+			{
+				case PORTA:
+				SET_BIT(PORTA_reg,Copy_u8Pin);
+				break;
+				
+				case PORTB:
+				SET_BIT(PORTB_reg,Copy_u8Pin);
+				break;
+				
+				case PORTC:
+				SET_BIT(PORTC_reg,Copy_u8Pin);
+				break;
+				
+				case PORTD:
+				SET_BIT(PORTD_reg,Copy_u8Pin);
+			}
+		}
+		else//value is 0 so we clear the bits
+		{
+			switch(Copy_u8Port)
+			{
+				case PORTA:
+				CLR_BIT(PORTA_reg,Copy_u8Pin);
+				break;
+				
+				case PORTB:
+				CLR_BIT(PORTB_reg,Copy_u8Pin);
+				break;
+				
+				case PORTC:
+				CLR_BIT(PORTC_reg,Copy_u8Pin);
+				break;
+				
+				case PORTD:
+				CLR_BIT(PORTD_reg,Copy_u8Pin);
+			}
+		}
+		
+		return 1; //correct
+	}
+	else
+		return 0;	//incorrect input
+}
+/******************************************************************************/
+/***********************Setting port value*************************************/
+/******************************************************************************/
+
+u8 DIO_u8SetPortValue(u8 Copy_u8Port ,u8 Copy_u8Value)
+{
+	if(Copy_u8Port<=PORTD)
+	{
+		if(Copy_u8Value)//setting output pins to high
+		{
+			switch(Copy_u8Port)
+			{
+				case PORTA:
+				for(u8 i=7;i>=0;i--)
+				{
+					SET_BIT(PORTA_reg,i);
+				}
+				break;
+				case PORTB:
+				for(u8 i=7;i>=0;i--)
+				{
+					SET_BIT(PORTB_reg,i);
+				}
+				break;
+				case PORTC:
+				for(u8 i=7;i>=0;i--)
+				{
+					SET_BIT(PORTC_reg,i);
+				}
+				break;
+				case PORTD:
+				for(u8 i=7;i>=0;i--)
+				{
+					SET_BIT(PORTD_reg,i);
+				}
+				break;
+			}
+		}
+		else//value is 0 so we clear all bits
+		{
+			switch(Copy_u8Port)
+			{
+				case PORTA:
+				for(u8 i=7;i>=0;i--)
+				{
+					CLR_BIT(PORTA_reg,i);
+				}
+				break;
+				case PORTB:
+				for(u8 i=7;i>=0;i--)
+				{
+					CLR_BIT(PORTB_reg,i);
+				}
+				break;
+				case PORTC:
+				for(u8 i=7;i>=0;i--)
+				{
+					CLR_BIT(PORTC_reg,i);
+				}
+				break;
+				case PORTD:
+				for(u8 i=7;i>=0;i--)
+				{
+					CLR_BIT(PORTD_reg,i);
+				}
+				break;
+			}
+		}
+		return 1;//correct input
+	}
+	else
+		return 0;//incorrect input
+}
+/******************************************************************************/
+/***********************Getting PIN value*************************************/
+/******************************************************************************/
+u8 DIO_u8GetPinValue(u8 Copy_u8Port ,u8 Copy_u8Pin,u8* Copy_pu8Value)
+{
+	if(Copy_u8Port<=PORTD&&Copy_u8Pin<=PIN_7)
+	{
+		switch(Copy_u8Port)
+		{
+			case PORTA:
+			*Copy_pu8Value=GET_BIT(PORTA_reg,Copy_u8Pin);
+			break;
+			
+			case PORTB:
+			*Copy_pu8Value=GET_BIT(PORTB_reg,Copy_u8Pin);
+			break;
+			
+			case PORTC:
+			*Copy_pu8Value=GET_BIT(PORTC_reg,Copy_u8Pin);
+			break;
+			
+			case PORTD:
+			*Copy_pu8Value=GET_BIT(PORTD_reg,Copy_u8Pin);
+			break;
+		}
+		return 1;
+	}
+	else
+		return 0;
+}

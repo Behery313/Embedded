@@ -1,0 +1,20 @@
+/*
+ * main.c
+ *
+ *  Created on: 15 Jan 2022
+ *      Author: Yusuf
+ */
+
+
+#include "typedefs.h"
+
+#include"DIO_Int.h"
+
+void main()
+{
+	DIO_SetPortDir(PORTA,OUTPUT);
+	while(1){
+		*((volatile u8 *)0x3B)=0;
+	//DIO_SetPortVal(PORTA,0);
+		}
+}

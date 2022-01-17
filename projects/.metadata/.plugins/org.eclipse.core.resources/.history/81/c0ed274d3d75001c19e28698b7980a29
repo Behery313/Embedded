@@ -1,0 +1,19 @@
+/*
+  * main.c
+ *
+ *  Created on: 14 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include<avr/io.h>
+#include<util/delay.h>
+#define u8 char
+void main()
+{
+	DDRA=0xff;
+
+	while(1)
+	{
+
+	}
+}

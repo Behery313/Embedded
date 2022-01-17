@@ -1,0 +1,44 @@
+15:04:43 **** Incremental Build of configuration Debug for project project7_testing_DIO ****
+make all 
+Building file: ../DIO_program.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=12000000UL -MMD -MP -MF"DIO_program.d" -MT"DIO_program.o" -c -o "DIO_program.o" "../DIO_program.c"
+Finished building: ../DIO_program.c
+ 
+Building file: ../main.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega32 -DF_CPU=12000000UL -MMD -MP -MF"main.d" -MT"main.o" -c -o "main.o" "../main.c"
+../main.c:9: warning: return type of 'main' is not 'int'
+Finished building: ../main.c
+ 
+Building target: project7_testing_DIO.elf
+Invoking: AVR C Linker
+avr-gcc -Wl,-Map,project7_testing_DIO.map -mmcu=atmega32 -o "project7_testing_DIO.elf"  ./DIO_program.o ./main.o   
+Finished building target: project7_testing_DIO.elf
+ 
+Invoking: AVR Create Extended Listing
+avr-objdump -h -S project7_testing_DIO.elf  >"project7_testing_DIO.lss"
+Finished building: project7_testing_DIO.lss
+ 
+Create Flash image (ihex format)
+avr-objcopy -R .eeprom -R .fuse -R .lock -R .signature -O ihex project7_testing_DIO.elf  "project7_testing_DIO.hex"
+Finished building: project7_testing_DIO.hex
+ 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 project7_testing_DIO.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    2018 bytes (6.2% Full)
+(.text + .data + .bootloader)
+
+Data:          0 bytes (0.0% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+15:04:44 Build Finished (took 878ms)
+

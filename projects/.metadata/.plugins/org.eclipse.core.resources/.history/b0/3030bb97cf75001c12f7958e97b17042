@@ -1,0 +1,27 @@
+/*
+ * main.c
+ *
+ *  Created on: 15 Jan 2022
+ *      Author: Yusuf
+ */
+#include<avr/io.h>
+#include<util/delay.h>
+typedef unsigned char u8;
+void main()
+{
+	u8 num_7_seg[]={0b10100000,0b11111001,0b11000100,0b11010000,0b10011001,0b10010010,0b10000011,0b11111000,0b10000000,0b10011000};
+	DDRA=0xff;//both 7 segs connected to PORTA
+	DDRB=0b11;//bit 0 is common anode for the right 7 seg and bit 1 is common anode for left 7 seg
+	while(1)
+	{
+		for(u8 i=9;i>=0;i--)
+		{
+			PORTB=0b01;
+			PORTA=num_7_seg[i];//count down
+			_delay_ms(10);
+			PORTB=0b10;
+			PORTA=num_7_seg[9-i];//count up
+			_delay_ms(10);
+		}
+	}
+}

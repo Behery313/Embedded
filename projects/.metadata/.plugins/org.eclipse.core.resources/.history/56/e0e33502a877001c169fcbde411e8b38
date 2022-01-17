@@ -1,0 +1,28 @@
+/*
+ * main.c
+ *
+ *  Created on: 17 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include"STD_TYPES.h"
+#include"DIO_interface.h"
+#include"CLCD_interface.h"
+#include"CLCD_config.h"
+#include<util/delay.h>
+void main()
+{
+	DIO_u8SetPortDirection(CLCD_DATA_PORT,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_RS_PIN,DIO_u8OUTPUT);
+	DIO_u8SetPinDirection(CLCD_CTRL_PORT,CLCD_RW_PIN,DIO_u8OUTPUT);
+	char name[]=" Behery";
+	/*initialize LCD*/
+	CLCD_VoidInit();
+	CLCD_VoidSendString(name);
+	while(1)
+	{
+
+	}
+
+}

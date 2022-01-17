@@ -1,0 +1,33 @@
+/*
+ * main.c
+
+ *
+ *  Created on: 15 Jan 2022
+ *      Author: Yusuf
+ */
+#include "STD_TYPES.h"
+#include "DIO_interface.h"
+//#include<avr/io.h>
+#define SET_BIT(VAR,BITNO) (VAR) |=  (1 << (BITNO))
+void main()
+{
+	DIO_u8SetPortDirection(PORTA,OUTPUT);
+	//DDRA=0xff;
+	*((volatile u8*)0x3a) =0xff;
+	DIO_u8SetPinDirection(PORTC,PIN_3,OUTPUT);
+	//*((volatile u8*)0x34) =0b1000;
+	//SET_BIT(*((volatile u8*)0x34),PIN_3);
+
+	//DDRA=0xff;
+	//DDRC=0xff;
+	while(1)
+	{
+		//PORTA=0;
+		//PORTC=0b1000;
+		//*((volatile u8*)0x3b) =0xff;
+		//*((volatile u8*)0x35) =0b1000;
+		DIO_u8SetPortValue(PORTA,HIGH);
+		DIO_u8SetPinValue(PORTC,PIN_3,HIGH);
+		//DIO_u8SetPortValue(3,LOW);
+	}
+}
