@@ -19,4 +19,5 @@ void CLCD_VoidSendString(const char * CLCD_pcString);
 void CLCD_VoidGoToXY(u8 Copy_u8XPos,u8 Copy_u8YPos);
 void CLCD_VoidWriteSpecialChar(const u8* Copy_pu8Pattern,u8 Copy_u8PatternNumber,u8 Copy_u8XPos,u8 Copy_u8YPos);//block number:number of special characters 0->7
 void CLCD_VoidShowNum(u32 Copy_u32Num);
+void CLCD_VoidReset_Display(void);
 #endif

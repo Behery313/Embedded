@@ -32,15 +32,24 @@ void main()
 
 	//CLCD_VoidWriteSpecialChar(pattern1,0,0,1);
 	//CLCD_VoidSendData('1');
-	//u8 i=0;
-	for(u8 i=0;;i=!i){
-		for (u8 j=0;j<4;j++){
-	CLCD_VoidWriteSpecialChar(pattern4,0,i,15-j);
-	CLCD_VoidWriteSpecialChar(pattern3,1,i,15-j-1);
-	CLCD_VoidWriteSpecialChar(pattern2,2,i,15-j-2);
-	CLCD_VoidWriteSpecialChar(pattern1,3,i,15-j-3);
+	u8 i=0;
+	while(1)
+	{
+		for (u8 j=0;j<=15;j++)//15 number of visible window on CLCD
+		{
+			CLCD_VoidWriteSpecialChar(pattern1,0,i,15-j);
+			CLCD_VoidWriteSpecialChar(pattern2,1,i,15-j-1);
+			CLCD_VoidWriteSpecialChar(pattern3,2,i,15-j-2);
+			CLCD_VoidWriteSpecialChar(pattern4,3,i,15-j-3);
+			i=!i;
+			_delay_ms(500);
+			CLCD_VoidReset_Display();
 		}
-	}//CLCD_VoidSendData('2');
+	//	i=!i;
+	//	_delay_ms(500);
+	//	CLCD_VoidReset_Display();
+	}
+	//CLCD_VoidSendData('2');
 	//CLCD_VoidSendData('3');
 	//CLCD_VoidSendData('4');
 	//CLCD_VoidSendData('5');

@@ -158,3 +158,7 @@ void CLCD_VoidShowNum(u32 Copy_u32Num)
 		CLCD_VoidSendData(((Copy_u32Num/(u32POWER(10,Local_u8DigitCount)))%10)+'0');
 	}
 }
+void CLCD_VoidReset_Display(void)
+{
+	CLCD_VoidSendCommand(0b00000001);
+}
