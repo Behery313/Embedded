@@ -1,0 +1,55 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	HAL				**********************/
+/**************		SWC:	KPD				**********************/
+/**************		Version:1.00			**********************/
+/**************		Date:18/1/2022			**********************/
+/*****************************************************************/
+/*****************************************************************/
+#include "STD_TYPES.h"
+#include "DIO_interface.h"
+#include "KPD_interface.h"
+#include "KPD_config.h"
+#include "KPD_private.h"
+
+u8 KPD_u8GetPressedKey(void)
+{
+	u8 Local_u8PressedKey=KPD_NO_PRESSED_KEY;
+	u8 Local_u8KeyState;
+	static u8 KPD_u8ColArr[4]={KPD_COL_1,KPD_COL_2,KPD_COL_3,KPD_COL_4};//to store in the data part of the memory
+	static u8 KPD_u8RowArr[4]={KPD_ROW_1,KPD_ROW_2,KPD_ROW_3,KPD_ROW_4};	
+	static u8 KPD_u8KeyArr[4][4]=KPD_KEY_ARR_VALUES;
+	/*make each col low one at a time and check each row value*/
+	for(u8 Local_iteratorCOL=0;Local_iteratorCOL<COL_NUM;Local_iteratorCOL++)
+	{
+		/*make col low*/
+		DIO_u8SetPinValue(KPD_PORT,KPD_u8ColArr[Local_iteratorCOL],DIO_u8LOW);
+		/*check on row value*/
+		for(u8 Local_iteratorRow=0;Local_iteratorRow<ROW_NUM;Local_iteratorRow++)
+		{
+			DIO_u8GetPinValue(KPD_PORT,KPD_u8RowArr[Local_iteratorRow],&Local_u8KeyState);
+			
+			if(DIO_u8LOW==Local_u8KeyState)//key is pressed
+			{
+				/*assign the value pressed the variable and return it*/
+				Local_u8PressedKey=KPD_u8KeyArr[Local_iteratorRow][Local_iteratorCOL];
+				
+				/*debouncing tech not needed as after we find the key pressed we stop the search and return debbouncing will occur but after we stop the search for the pressed key*/
+				
+				/*reset Column before leaving the function to successfuly call it in the future*//************************************************************************************************************/
+				//DIO_u8SetPinValue(KPD_PORT,KPD_u8ColArr[Local_iteratorCOL],DIO_u8HIGH);
+				
+				/*polling (busy waiting )until key is released*/
+				while(DIO_u8LOW==Local_u8KeyState)
+				{
+					DIO_u8GetPinValue(KPD_PORT,KPD_u8RowArr[Local_iteratorRow],&Local_u8KeyState);	
+				}
+				return Local_u8PressedKey;
+			}
+		}
+		/*reset the col value to high to continue searching through the other columns as we MUST have one column LOW while searching through the rows*/
+		DIO_u8SetPinValue(KPD_PORT,KPD_u8ColArr[Local_iteratorCOL],DIO_u8HIGH);
+	}
+	return Local_u8PressedKey;
+}

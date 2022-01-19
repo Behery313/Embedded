@@ -1,0 +1,20 @@
+02:40:44 **** Incremental Build of configuration Debug for project project11_KPD ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 project11_KPD.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    6384 bytes (19.5% Full)
+(.text + .data + .bootloader)
+
+Data:         41 bytes (2.0% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+02:40:44 Build Finished (took 156ms)
+

@@ -1,0 +1,25 @@
+/*****************************************************************/
+/*****************************************************************/
+/**************		Author:	Youssef Behery	**********************/
+/**************		Layer: 	MCAL			**********************/
+/**************		SWC:	PORT			**********************/
+/**************		Version:1.00			**********************/
+/*****************************************************************/
+/*****************************************************************/
+#include"PORT_config.h"
+#include"PORT_interface.h"
+
+#include"PORT_private.h"//must be after port interface
+#include"PORT_register.h"
+void PORT_VoidInit(void)
+{
+	DDRA_reg=PORTA_DIR;
+	DDRB_reg=PORTB_DIR;
+	DDRC_reg=PORTC_DIR;
+	DDRD_reg=PORTD_DIR;
+	
+	PORTA_reg=PORTA_InitValue;
+    PORTB_reg=PORTB_InitValue;
+    PORTC_reg=PORTC_InitValue;
+    PORTD_reg=PORTD_InitValue;
+}

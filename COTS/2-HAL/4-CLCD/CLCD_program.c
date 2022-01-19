@@ -14,6 +14,12 @@
 #include "DIO_interface.h"
 #include "CLCD_interface.h"
 #include "CLCD_config.h"
+#include "CLCD_private.h"
+
+static u8 Global_u8SendDataCounter=0;//counter to each time send data is called to know when to write to the second row
+
+/*Send data counter is number of times that function send data was called .The number
+ *specifies the position of the next character to be written on the first row */
 
 void CLCD_VoidSendCommand(u8 Copy_u8Command)
 {
@@ -32,8 +38,14 @@ void CLCD_VoidSendCommand(u8 Copy_u8Command)
 	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8LOW);
 
 }
+
 void CLCD_VoidSendData(u8 Copy_u8Data)
 {
+	/*check if the function is called 16 times the first row is completely filled then write to the second row*/
+	if(Global_u8SendDataCounter==MAX_COLUMNS)
+	{
+		CLCD_VoidGoToXY(1,0);
+	}
 	/**********SET RS to 1 for DATA****************/
 	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_RS_PIN,DIO_u8HIGH);
 	/**********SET RW to 0 to write****************/
@@ -44,8 +56,9 @@ void CLCD_VoidSendData(u8 Copy_u8Data)
 	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8HIGH);//set enable pin to high for the microcontroller on the lcd to read the data sent to it
 	_delay_ms(2);//delay value specified by the datasheet
 	DIO_u8SetPinValue(CLCD_CTRL_PORT,CLCD_E_PIN,DIO_u8LOW);
-/*********TO BE REMOVED************/
-//	_delay_ms(1000);
+
+	/*increment the static variable so if it reaches 15*/
+		Global_u8SendDataCounter++;
 }
 void CLCD_VoidInit(void)
 {
@@ -111,7 +124,7 @@ void CLCD_VoidWriteSpecialChar(const u8* Copy_pu8Pattern,u8 Copy_u8PatternNumber
 	//_delay_ms(1);
 	//DIO_u8GetPortValue(CLCD_DATA_PORT,& Local_u8DDRamAddress);
 	/*restore the data port*/
-	DIO_u8SetPortDirection(CLCD_DATA_PORT,DIO_u8OUTPUT);
+	//DIO_u8SetPortDirection(CLCD_DATA_PORT,DIO_u8OUTPUT);
 	/*get CGram address from block number*/
 	u8 Local_u8CGRamAddress=Copy_u8PatternNumber*8;
 
@@ -129,6 +142,14 @@ void CLCD_VoidWriteSpecialChar(const u8* Copy_pu8Pattern,u8 Copy_u8PatternNumber
 	/*to display char in CGram send data using block number as input*/
 	CLCD_VoidGoToXY(Copy_u8XPos,Copy_u8YPos);
 	CLCD_VoidSendData(Copy_u8PatternNumber);
+
+	/*configuring the global send data counter to make sure to write to second row after finishing first row*/
+	/*Send data counter is number of times that function send data was called the number specifies the position of the next character to be written on the first row */
+	if(Copy_u8XPos==0)//write special char in first row
+	{
+
+		Global_u8SendDataCounter=Copy_u8YPos+1;
+	}
 }
 u32 u32POWER(u32 Copy_u8Num, u8 Copy_u8pow)
 {
@@ -160,5 +181,8 @@ void CLCD_VoidShowNum(u32 Copy_u32Num)
 }
 void CLCD_VoidReset_Display(void)
 {
+	/*send command to reset the display*/
 	CLCD_VoidSendCommand(0b00000001);
+	/*reset the global counter*/
+	Global_u8SendDataCounter=0;
 }

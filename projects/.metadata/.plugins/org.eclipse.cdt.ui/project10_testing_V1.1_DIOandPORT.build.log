@@ -1,0 +1,20 @@
+23:16:14 **** Incremental Build of configuration Debug for project project10_testing_V1.1_DIOandPORT ****
+make all 
+Invoking: Print Size
+avr-size --format=avr --mcu=atmega32 project10_testing_V1.1_DIOandPORT.elf
+AVR Memory Usage
+----------------
+Device: atmega32
+
+Program:    6862 bytes (20.9% Full)
+(.text + .data + .bootloader)
+
+Data:         48 bytes (2.3% Full)
+(.data + .bss + .noinit)
+
+
+Finished building: sizedummy
+ 
+
+23:16:15 Build Finished (took 361ms)
+

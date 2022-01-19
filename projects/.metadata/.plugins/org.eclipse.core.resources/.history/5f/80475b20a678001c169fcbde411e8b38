@@ -1,0 +1,26 @@
+/*
+ * main.c
+ *
+ *  Created on: 17 Jan 2022
+ *      Author: Yusuf
+ */
+
+#include"STD_TYPES.h"
+#include"DIO_interface.h"
+#include"CLCD_interface.h"
+#include"PORT_interface.h"
+#include<util/delay.h>
+#include"KPD_interface.h"
+void main()
+{
+
+	u8 Local_u8Key;
+	PORT_VoidInit();
+	CLCD_VoidInit();
+		do
+	{
+			Local_u8Key=KPD_u8GetPressedKey();
+
+	}while(Local_u8Key==0xff)
+		CLCD_VoidShowNum();
+}

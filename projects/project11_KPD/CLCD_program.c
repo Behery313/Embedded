@@ -14,6 +14,7 @@
 #include "DIO_interface.h"
 #include "CLCD_interface.h"
 #include "CLCD_config.h"
+#include "CLCD_private.h"
 
 static u8 Global_u8SendDataCounter=0;//counter to each time send data is called to know when to write to the second row
 
@@ -41,7 +42,7 @@ void CLCD_VoidSendCommand(u8 Copy_u8Command)
 void CLCD_VoidSendData(u8 Copy_u8Data)
 {
 	/*check if the function is called 16 times the first row is completely filled then write to the second row*/
-	if(Global_u8SendDataCounter==16)
+	if(Global_u8SendDataCounter==MAX_COLUMNS)
 	{
 		CLCD_VoidGoToXY(1,0);
 	}

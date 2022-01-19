@@ -1675,7 +1675,7 @@ void CLCD_VoidSendData(u8 Copy_u8Data)
      c94:	cd bf       	out	0x3d, r28	; 61
      c96:	8f 87       	std	Y+15, r24	; 0x0f
 	/*check if the function is called 16 times the first row is completely filled then write to the second row*/
-	if(Global_u8SendDataCounter==16)
+	if(Global_u8SendDataCounter==MAX_COLUMNS)
      c98:	80 91 88 00 	lds	r24, 0x0088
      c9c:	80 31       	cpi	r24, 0x10	; 16
      c9e:	21 f4       	brne	.+8      	; 0xca8 <CLCD_VoidSendData+0x26>
@@ -3277,7 +3277,7 @@ u8 KPD_u8GetPressedKey(void)
     1622:	8f ef       	ldi	r24, 0xFF	; 255
     1624:	8b 83       	std	Y+3, r24	; 0x03
 	u8 Local_u8KeyState;
-	static u8 KPD_u8ColArr[4]={KPD_COL_1,KPD_COL_2,KPD_COL_3,KPD_COL_4};//to store in the data part of the memory
+	static u8 KPD_u8ColArr[4]={KPD_COL_1,KPD_COL_2,KPD_COL_3,KPD_COL_4};//to store in the data part of the memory and avoid stack overflow
 	static u8 KPD_u8RowArr[4]={KPD_ROW_1,KPD_ROW_2,KPD_ROW_3,KPD_ROW_4};	
 	static u8 KPD_u8KeyArr[4][4]=KPD_KEY_ARR_VALUES;
 	/*make each col low one at a time and check each row value*/
@@ -3412,7 +3412,7 @@ u8 KPD_u8GetPressedKey(void)
     16da:	41 e0       	ldi	r20, 0x01	; 1
     16dc:	0e 94 cd 08 	call	0x119a	; 0x119a <DIO_u8SetPinValue>
 	u8 Local_u8KeyState;
-	static u8 KPD_u8ColArr[4]={KPD_COL_1,KPD_COL_2,KPD_COL_3,KPD_COL_4};//to store in the data part of the memory
+	static u8 KPD_u8ColArr[4]={KPD_COL_1,KPD_COL_2,KPD_COL_3,KPD_COL_4};//to store in the data part of the memory and avoid stack overflow
 	static u8 KPD_u8RowArr[4]={KPD_ROW_1,KPD_ROW_2,KPD_ROW_3,KPD_ROW_4};	
 	static u8 KPD_u8KeyArr[4][4]=KPD_KEY_ARR_VALUES;
 	/*make each col low one at a time and check each row value*/
