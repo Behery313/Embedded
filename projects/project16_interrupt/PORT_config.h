@@ -40,9 +40,9 @@
 /*****************************************************************/	
 	/*PORTB DIRECTIONS*/
 	#define PORTB_PIN_0_DIR					OUTPUT
-	#define PORTB_PIN_1_DIR					INPUT
+	#define PORTB_PIN_1_DIR					OUTPUT
 	#define PORTB_PIN_2_DIR					INPUT  
-	#define PORTB_PIN_3_DIR					INPUT  
+	#define PORTB_PIN_3_DIR					OUTPUT
 	#define PORTB_PIN_4_DIR					INPUT  
 	#define PORTB_PIN_5_DIR					INPUT  
 	#define PORTB_PIN_6_DIR					INPUT  
@@ -83,8 +83,8 @@
 	/*PORTD DIRECTIONS*/
 	#define PORTD_PIN_0_DIR					OUTPUT
 	#define PORTD_PIN_1_DIR					OUTPUT
-	#define PORTD_PIN_2_DIR					OUTPUT
-	#define PORTD_PIN_3_DIR					OUTPUT
+	#define PORTD_PIN_2_DIR					INPUT
+	#define PORTD_PIN_3_DIR					INPUT
 	#define PORTD_PIN_4_DIR					OUTPUT
 	#define PORTD_PIN_5_DIR					OUTPUT
 	#define PORTD_PIN_6_DIR					OUTPUT
@@ -92,8 +92,8 @@
 	/*PORTD PIN INITIALISATIONS*/
 	#define PORTD_PIN_0_InitValue			0  
 	#define PORTD_PIN_1_InitValue			0  
-	#define PORTD_PIN_2_InitValue			0  
-	#define PORTD_PIN_3_InitValue			0  
+	#define PORTD_PIN_2_InitValue			1
+	#define PORTD_PIN_3_InitValue			1
 	#define PORTD_PIN_4_InitValue			0  
 	#define PORTD_PIN_5_InitValue			0  
 	#define PORTD_PIN_6_InitValue			0  

@@ -10,9 +10,12 @@
 #ifndef EXTI_PRIVATE_H_
 #define EXTI_PRIVATE_H_
 
-#define EXTI_FALLING		0
-#define EXTI_RISING			1
-#define EXTI_CHANGE			2
-#define EXTI_LOW_LEVEL		3
+#define EXTI_FALLING			1
+#define EXTI_RISING				2
+#define EXTI_ANYCHANGE			3
+#define EXTI_LOW_LEVEL			4
+
+#define ENABLED 				1
+#define DISABLED				2
 
 #endif
