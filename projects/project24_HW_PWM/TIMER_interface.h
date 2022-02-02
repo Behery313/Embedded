@@ -3,12 +3,11 @@
 /**************		Author:	Youssef Behery	**********************/
 /**************		Layer: 	MCAL			**********************/
 /**************		SWC:	TIMER			**********************/
-/**************		Version:1.2				**********************/
-/**************		Date:31/1/2022			**********************/
+/**************		Version:1.1				**********************/
+/**************		Date:29/1/2022			**********************/
 /*****************************************************************/
 /*****************************************************************/
-/*V1.1: Added FAST PWM config
- *V1.2: Added Timer 1 */
+/*V1.1: Added FAST PWM config*/
 
 /*ALL FUNCTIONS VERIFIED USING 10 SECS delay :)*/
 
@@ -34,15 +33,4 @@ u8 TIMER0_u8WaitSync(u8 Copy_u8RegisterValue,u32 Copy_u32Counts);//without inter
 u8 TIMER0_u8SetCallBack(void (*Copy_pvNotif)(void));//used in every mode of operation
 
 void TIMER0_SetPreload(u8 Copy_u8Preload);//used in Normal mode to set TCNT0 can't be used in any other mode
-
-/*TIMER 1*/
-void TIMER1_VoidInit(u16 Copy_u16TOP);//TOP value ignored in modes other than PWM
-void TIMER1_VoidSetOCRValue(u16 Copy_u16RegisterValue);
-u16 TIMER1_u16ReadTimerValue();
-void TIMER1_VoidSetTimerValue(u16 Copy_u16TimerValue);
-
-void Timer1_VoidICUInit(u8 Local_u8Edge);
-#define ICU_Rising 		0
-#define ICU_Falling 	1
-
 #endif /* TIMER_INTERFACE_H_ */
