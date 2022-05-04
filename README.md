@@ -1,2 +1,2 @@
 # Embedded
-this repository contain the drivers for ATMEGA32 and exercises 
+this repository contains the drivers for ATMEGA32 , exercises and AUTOSAR PORT driver project for ARM course
